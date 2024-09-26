@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /* 全体のスタイル */
 body {
     line-height: 1.6;
@@ -1010,7 +1010,7 @@ footer {
     .footer-nav ul {
         text-align: center;
     }
-=======
+}
 /* 全体のスタイル */
 body {
     line-height: 1.6;
@@ -2022,5 +2022,4 @@ footer {
     .footer-nav ul {
         text-align: center;
     }
->>>>>>> 0b61ab6c318980b5f5c726613c983864a5da3759
 }

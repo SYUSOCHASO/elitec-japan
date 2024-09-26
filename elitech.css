@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* 全体のスタイル */
 body {
     line-height: 1.6;
@@ -1009,4 +1010,1017 @@ footer {
     .footer-nav ul {
         text-align: center;
     }
+=======
+/* 全体のスタイル */
+body {
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans JP', 'M PLUS 1p', 'Zen Kaku Gothic New', 'Kosugi Maru', 'Sawarabi Gothic', sans-serif;
+}
+
+/* 見出し用のフォントを設定する場合 */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'M PLUS 1p', 'Zen Kaku Gothic New', 'Noto Sans JP', 'Kosugi Maru', 'Sawarabi Gothic', sans-serif;
+}
+
+/* ヘッダーとナビゲーション */
+header {
+    background-color: #3336f8;
+    color: white;
+    padding: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+nav {
+    display: flex;
+    justify-content: column;
+    align-items: center;
+    z-index: 1000;
+    position: relative;
+}
+
+section {
+    margin: 0;
+    padding: 4rem 0;
+}
+
+.logo {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 22%;
+}
+
+.logo-image {
+    max-height: 80px; /* ロゴの高さを調整 */
+    width: auto;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 0.5rem;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* メインコンテンツ */
+main {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+section {
+    margin-bottom: 3rem;
+}
+
+h1, h2, h3 {
+    color: #3336f8;
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+    }
+
+    .logo {
+        justify-content: center;
+        padding-right: 0%;
+        margin-bottom: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+}
+
+#hero {
+    position: relative;
+    width: 100%;
+    height: 55vh;
+    overflow: hidden;
+    margin-top: -65px;
+}
+
+.hero-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-image {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    background-color: #f8f8f8;
+}
+
+.hero-image.active {
+    opacity: 1;
+}
+
+.hero-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-logo .logo-image {
+    width: auto;
+    height: 80vh; /* ビューポートの高さの80%に設定 */
+    max-height: 250px; /* 最大高さを制限 */
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .hero-logo .logo-image {
+        height: 60vh; /* 小さな画面では高さを減らす */
+        max-height: 400px; /* 最大高さも調整 */
+    }
+}
+
+.hero-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-center {
+    position: absolute;
+    top: 0;
+    right: -50%; /* 画像を左に移動 */
+    width: 120%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    25%, 75% { opacity: 0.7; }
+}
+
+
+@keyframes slideShow {
+    0%, 33% {
+        transform: translateX(0);
+    }
+    33.33%, 66% {
+        transform: translateX(-33.333%);
+    }
+    66.66%, 100% {
+        transform: translateX(-66.666%);
+    }
+}
+
+.hero-image-container {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    animation: slideShow 15s infinite;
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes slideShow {
+    0%, 33% {
+        transform: translateX(0);
+    }
+    33.33%, 66% {
+        transform: translateX(-33.333%);
+    }
+    66.66%, 100% {
+        transform: translateX(-66.666%);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-inner {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .hero-left, .hero-right {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .hero-left h1, .hero-right p {
+        font-size: 4vw; /* モバイル表示時のフォントサイズ */
+    }
+}
+
+/* 新しいメインナビゲーションのスタイル */
+#main-nav-wrapper {
+    position: relative;
+    background-color: #f8f8f8;
+    padding: 1rem 0;
+    margin-top: -50px;
+    margin-bottom: 60px;
+}
+
+#main-nav-wrapper::before,
+#main-nav-wrapper::after,
+#main-nav ul li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #000000; /* 縦線の色 */
+}
+
+#main-nav-wrapper::before {
+    left: 20%; /* 左端の縦線の位置 */
+}
+
+#main-nav-wrapper::after {
+    right: 20%; /* 右端の縦線の位置 */
+}
+
+#main-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20%;
+    position: relative;
+}
+
+#main-nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+#main-nav ul li {
+    position: relative;
+    padding: 0 30px;
+}
+
+#main-nav ul li::before {
+    left: 0;
+}
+
+#main-nav ul li:first-child::before {
+    display: none; /* 最初の項目の左側の縦線を非表示 */
+}
+
+#main-nav ul li a {
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.6em;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 5px 15px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    display: block;
+    position: relative;
+    z-index: 1; /* 縦線の上にテキストを表示 */
+}
+
+#main-nav ul li a:hover {
+    color: #ffffff;
+    background-color: #3d72c0;
+    border-color: #3d72c0;
+}
+
+
+#about {
+    position: relative;
+    overflow: hidden;
+    background-color: #ecebeb;
+    padding: 2rem 0;
+    margin-top: -60px;
+    align-items: flex-start;
+}
+
+.about-image-container {
+    width: 100vw;
+    margin-left: 0;
+    height: 700px;
+    overflow: hidden;
+    position: relative;
+    top: 0px;
+    left: 0;
+}
+
+.about-content-top {
+    position: absolute;
+    top: -20%;
+    left: 24%;
+    transform: translateX(-50%);
+    z-index: 2;
+    padding: 2rem;
+    max-width: 1800px;
+    width: 100%;
+    border-radius: 10px;
+    text-align: center;
+    justify-content: flex-end;
+}
+
+.about-content-top h2 {
+    font-size: 2em;
+    color: #3336f8;
+    margin-bottom: 10px;
+    order: 2;
+    text-align: right; /* 右寄せにする */
+    padding-right: 35%; /* 右側の余白を追加 */
+    margin-top: 100px;
+}
+
+.about-content-top h3 {
+    font-size: 2em; /* 現在のサイズの2倍に設定 */
+    color: #000000; /* 既存の色を維持 */
+    margin-bottom: 0.5em; /* 下のテキストとの間隔を調整 */
+    text-align: right;
+    margin-right: 0;
+    position: relative;
+    order: 1;
+    top: -40px;
+    margin-bottom: -40px;
+}
+
+.about-content-right h3 {
+    color: #3336f8;
+    border-bottom: 2px solid #3336f8; /* 下線を追加 */
+    padding-bottom: 5px; /* 下線とテキストの間隔を調整 */
+    margin-bottom: 50px; /* 下線と次の段落との間隔を調整 */
+    display: inline-block; /* 下線をテキストの幅に合わせる */
+    width: auto;
+}
+
+/* 右揃えの見出しに対する追加のスタイル */
+.about-item h3.right-align {
+    text-align: left;
+    float: left; /* 右揃えの見出しを右に寄せる */
+    clear: both; /* 浮動要素のクリア */
+}
+
+.about-item h3 {
+    color: #3336f8;
+    border-bottom: 2px solid #3336f8;
+    padding-bottom: 2px;
+    margin-bottom: 5px;
+    display: inline-block;
+    width: auto; /* 幅を100%に設定 */
+    text-align: left;
+}
+
+/* 段落のスタイル */
+.about-item p {
+    margin-top: 0; /* 見出しとの間隔を追加 */
+    clear: both;
+    line-height: 1.1;
+    text-align: left;
+}
+
+/* 浮動要素のクリアのための追加スタイル */
+.about-item::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.about-content-right {
+    position: relative;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    z-index: 2;
+    padding: 2rem;
+    max-width: 600px;
+    width: 50%;
+    border-radius: 10px;
+    margin: 0 auto;
+    top: -200px;
+}
+
+.about-content-top .single-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right; /* テキストを右揃えにする */
+    margin-right: 0; /* 右側のマージンを追加（必要に応じて調整） */
+    font-size: 1.1em;
+    max-width: 120%;
+    width: 120%;
+    order: 3;
+}
+
+.about-item {
+    margin-bottom: 0.1rem;
+    text-align: left;
+}
+
+.about-item.right-align {
+    text-align: left;
+}
+
+.about-item h3.right-align {
+    text-align: left;
+}
+
+.about-content-top p, .about-content-right p {
+    color: #333;
+}
+
+.slide-in {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.slide-in.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .about-content-top, .about-content-right {
+        position: static;
+        transform: none;
+        width: 90%;
+        max-width: none;
+        margin: 1rem auto;
+    }
+
+    .about-content-right {
+        position: static;
+        transform: none;
+        width: 90%;
+        max-width: none;
+        margin: 1rem auto;
+        max-height: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-content-top h3 {
+        text-align: center;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 1200px) {
+    .about-content-right {
+        width: 50%;
+        right: 2%;
+    }
+}
+
+/* 製品セクション */
+#products {
+    text-align: center; /* セクション全体を中央揃えに */
+    padding: 2rem 0;
+}
+
+#products h2 {
+    margin-bottom: 1rem; /* h2とh3の間隔を調整 */
+    font-size: 2.2em;
+}
+
+#products h3 {
+    max-width: 800px; /* テキストの最大幅を設定 */
+    margin: 0 auto 2rem; /* 上下左右の余白を設定し、中央に配置 */
+    line-height: 1.5; /* 行間を調整 */
+    font-size: 1.4em; /* フォントサイズを調整（必要に応じて） */
+    color: #000000;
+}
+
+#products p {
+    margin-bottom: 1rem; /* h2とh3の間隔を調整 */
+    font-size: 1.1em;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2列のグリッドに設定 */
+    grid-auto-rows: 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    max-width: 1200px; /* コンテナの最大幅を設定 */
+    margin: 0 auto; /* 中央揃え */
+}
+
+.product img {
+    width: 100%;
+    max-width: 310px;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.product:first-child {
+    position: relative;
+    overflow: hidden;
+    padding-top: 75%; /* アスペクト比を4:3に設定（調整可能） */
+    padding-bottom: -8rem;
+}
+
+.product:first-child img {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+    max-width: 300px;
+    width: 110%;
+    height: 540px;
+    object-fit: cover;
+}
+
+/* 最初の製品（回転させた画像）以外の画像に適用 */
+.product:not(:first-child) img {
+    width: 100%;
+    max-width: 470px; /* サイズを大きく */
+    height: 320px; /* 高さを固定 */
+    object-fit: cover; /* アスペクト比を保持しつつ、指定サイズにフィット */
+}
+
+.product:first-child h3,
+.product:first-child p {
+    position: relative;
+    z-index: 2;
+    top: -40%; /* この値を調整して、テキストの位置を上げる */
+}
+
+.product:first-child h3 {
+    margin-bottom: 0.1rem; /* 見出しと段落の間隔を調整 */
+}
+
+.product:first-child p {
+    margin-top: 0; /* 段落の上マージンを削除 */
+}
+
+/* 2番目、3番目、4番目の製品のスタイルを統一 */
+.product:nth-child(n+2) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* すべてのコンテンツを上揃えに */
+}
+
+.product:nth-child(n+2) img {
+    margin-bottom: 1rem; /* 画像の下マージンを設定 */
+}
+
+.product:nth-child(n+2) h3,
+.product:nth-child(n+2) p {
+    margin-top: 0; /* 上マージンを削除 */
+    margin-bottom: 0.5rem; /* 下マージンを追加 */
+}
+
+/* 2番目の製品に特別なスタイルが必要な場合 */
+.product:nth-child(2) h3 {
+    margin-bottom: 0.2rem; /* タイトルの下マージンを小さくする */
+}
+
+.product:nth-child(2) p {
+    margin-top: 0; /* 説明文の上マージンを削除 */
+}
+
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+#message {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* パララックス効果を追加（オプション） */
+    padding: 4rem 0;
+    color: #000000; /* テキストの色を白に設定 */
+    margin-bottom: 0;
+}
+
+#message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.5); /* 背景画像の上に半透明の黒いオーバーレイを追加 */
+}
+
+.message-content {
+    position: relative;
+    z-index: 1; /* テキストを背景オーバーレイの上に配置 */
+    max-width: 1300px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#message h2 {
+    font-size: 2.5em;
+    margin-bottom: 1.8rem;
+    color: #3336f8;
+}
+
+#message h3 {
+    font-size: 1.5em;
+    margin-bottom: 1.5rem;
+    color: #000000;
+}
+
+#message p {
+    font-size: 1.0em;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: #000000;
+}
+
+@media (max-width: 768px) {
+    #message {
+        padding: 3rem 1rem;
+    }
+
+    #message h2 {
+        font-size: 2em;
+    }
+
+    #message p {
+        font-size: 1em;
+    }
+}
+
+/* 会社情報、メッセージセクション */
+#company {
+    padding: 4rem 0;
+    background-color: #f8f8f8;
+    margin-top: 0;
+}
+
+#company h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.2em;
+}
+
+.company-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.company-info {
+    width: 60%;
+    border-collapse: collapse;
+}
+
+.company-info th,
+.company-info td {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.company-info th {
+    width: 30%;
+    text-align: left;
+    font-weight: bold;
+    background-color: #f0f0f0;
+}
+
+.company-info td {
+    width: 70%;
+}
+
+.company-logo {
+    width: 35%;
+    text-align: center;
+}
+
+.company-logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .company-container {
+        flex-direction: column;
+    }
+
+    .company-info,
+    .company-logo {
+        width: 100%;
+    }
+
+    .company-info th,
+    .company-info td {
+        display: block;
+        width: 100%;
+    }
+
+    .company-info th {
+        border-bottom: none;
+    }
+
+    .company-logo {
+        margin-top: 2rem;
+    }
+}
+
+/* お問い合わせフォーム */
+#contact {
+    background-color: #f0f0f0;
+    padding: 2rem 0;
+    margin-top: -50px;
+}
+
+#contact h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2em;
+    color: #3336f8;
+}
+
+#contact-form {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.form-section {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-header {
+    background-color: #3336f8;
+    color: #ffffff;
+    padding: 0.75rem;
+    margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+    border-radius: 8px 8px 0 0;
+}
+
+.form-header h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: #ffffff;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.9em;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.required {
+    color: #ff0000;
+}
+
+button[type="submit"] {
+    display: block;
+    width: 200px;
+    margin: 2rem auto 0;
+    background-color: #3336f8;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #2727c9;
+}
+
+#privacy-policy {
+    background-color: #f0f0f0;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-radius: 8px;
+}
+
+#privacy-policy h3 {
+    color: #3336f8;
+    margin-bottom: 1rem;
+}
+
+.policy-content {
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #ffffff;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.consent-checkbox {
+    margin-top: 1rem;
+}
+
+#submit-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+    }
+}
+/* フッター */
+footer {
+    background-color: #3336f8;
+    color: white;
+    padding: 2rem 0;
+    margin-top: -60px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.footer-logo {
+    flex: 0 0 auto;
+}
+
+.footer-logo img {
+    max-width: 150px;
+}
+
+.footer-nav {
+    flex: 0 1 auto;
+    margin-left: auto;
+}
+
+.footer-nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2rem;
+}
+
+.footer-nav ul li {
+    margin-bottom: 0;
+}
+
+.footer-nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    display: inline-block;
+    padding: 5px 0;
+}
+
+.footer-nav ul li a:hover {
+    opacity: 0.8;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {   
+    .footer-section {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-logo, .footer-nav, .footer-info {
+        margin-bottom: 1rem;
+    }
+
+    .footer-nav ul {
+        text-align: center;
+    }
+>>>>>>> 0b61ab6c318980b5f5c726613c983864a5da3759
 }

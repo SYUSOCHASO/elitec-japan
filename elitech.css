@@ -12,25 +12,22 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'M PLUS 1p', 'Zen Kaku Gothic New', 'Noto Sans JP', 'Kosugi Maru', 'Sawarabi Gothic', sans-serif;
 }
 
-/* ヘッダーとナビゲーション */
-header {
-    background-color: #3336f8;
-    color: white;
-    padding: 1rem;
-    padding: 0.5rem 1rem;
-}
-
 nav {
     display: flex;
     justify-content: column;
     align-items: center;
-    z-index: 1000;
+    z-index: 2;
     position: relative;
 }
 
+/* メインコンテンツ */
+main {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
 section {
-    margin: 0;
-    padding: 4rem 0;
+    margin-bottom: 3rem;
 }
 
 .logo {
@@ -61,27 +58,11 @@ nav ul li a {
     text-decoration: none;
 }
 
-/* メインコンテンツ */
-main {
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-section {
-    margin-bottom: 3rem;
-}
-
-h1, h2, h3 {
-    color: #3336f8;
-}
-
-
 #hero {
     position: relative;
     width: 100%;
-    height: 55vh;
+    height: 92vh;
     overflow: hidden;
-    margin-top: -65px;
 }
 
 .hero-slider {
@@ -94,18 +75,17 @@ h1, h2, h3 {
 
 .hero-image {
     position: absolute;
-    top: 50%;
     left: 0;
     width: 100%;
     height: 100vh;
     transform: translateY(-50%);
     opacity: 0;
-    transition: opacity 1s ease-in-out;
-    background-color: #f8f8f8;
+    transition: opacity 1s ease-in-out;  
 }
 
 .hero-image.active {
     opacity: 1;
+    animation: zoomIn 6s ease-in-out forwards;
 }
 
 .hero-logo {
@@ -139,16 +119,6 @@ h1, h2, h3 {
     z-index: 2;
 }
 
-.hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-}
-
 .hero-center {
     position: absolute;
     top: 0;
@@ -166,6 +136,15 @@ h1, h2, h3 {
     width: 100%;
     height: 100%;
     overflow: hidden;
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
 }
 
 @keyframes fadeInOut {
@@ -223,26 +202,20 @@ h1, h2, h3 {
     background-color: #f8f8f8;
     padding: 1rem 0;
     margin-top: -50px;
-    margin-bottom: 60px;
+    overflow: hidden; /* はみ出た部分を隠す */
 }
 
 #main-nav-wrapper::before,
 #main-nav-wrapper::after,
-#main-nav ul li::before {
+#main-nav ul::before,
+#main-nav ul::after,
+#main-nav ul li + li::before {
     content: '';
     position: absolute;
-    top: 0;
-    bottom: 0;
+    top: -30%; /* 上に100%はみ出させる */
+    bottom: -30%; /* 下に100%はみ出させる */
     width: 1px;
     background-color: #000000; /* 縦線の色 */
-}
-
-#main-nav-wrapper::before {
-    left: 20%; /* 左端の縦線の位置 */
-}
-
-#main-nav-wrapper::after {
-    right: 20%; /* 右端の縦線の位置 */
 }
 
 #main-nav {
@@ -261,17 +234,24 @@ h1, h2, h3 {
     align-items: center;
 }
 
+#main-nav ul::before {
+    left: 0;
+}
+
+#main-nav ul::after {
+    right: 0;
+}
+
 #main-nav ul li {
     position: relative;
     padding: 0 30px;
+    flex: 1; /* 均等に幅を分配 */
+    display: flex; /* Flexboxを使用 */
+    align-items: stretch; /* 子要素を縦に引き伸ばす */
 }
 
 #main-nav ul li::before {
     left: 0;
-}
-
-#main-nav ul li:first-child::before {
-    display: none; /* 最初の項目の左側の縦線を非表示 */
 }
 
 #main-nav ul li a {
@@ -283,161 +263,102 @@ h1, h2, h3 {
     padding: 5px 15px;
     border: 2px solid transparent;
     border-radius: 5px;
-    display: block;
-    position: relative;
+    display: flex;
     z-index: 1; /* 縦線の上にテキストを表示 */
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* 親要素の幅いっぱいに */
+    height: 100%; /* 親要素の高さいっぱいに */
 }
 
 #main-nav ul li a:hover {
     color: #ffffff;
     background-color: #3d72c0;
-    border-color: #3d72c0;
 }
-
 
 #about {
     position: relative;
     overflow: hidden;
-    background-color: #ecebeb;
-    padding: 2rem 0;
-    margin-top: -60px;
-    align-items: flex-start;
+    margin-top: -50px; /* この値を調整して上に移動 */
+    margin-bottom: -50px;
+}
+
+.about-image {
+    width: 100%; /* コンテナの幅いっぱいに広げる */
+    height: calc(90vh + 50px); /* 90vhに50pxを追加 */
+    object-fit: cover; /* 画像をコンテナにフィットさせる */
+    object-position: center 20%; /* 画像の上部を表示 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    filter: brightness(110%) contrast(90%); /* 画像を白っぽくする */
 }
 
 .about-image-container {
-    width: 100vw;
-    margin-left: 0;
-    height: 700px;
+    position: relative;
+    max-width: 100%; /* コンテナの最大幅を設定 */
+    height: calc(90vh + 50px); /* 90vhに50pxを追加 */
     overflow: hidden;
-    position: relative;
-    top: 0px;
-    left: 0;
 }
 
-.about-content-top {
-    position: absolute;
-    top: -20%;
-    left: 24%;
-    transform: translateX(-50%);
-    z-index: 2;
+.about-content {
+    position: relative;
+    z-index: 2; /* 画像の上にコンテンツを配置 */
+    background-color: rgba(255, 255, 255, 0.7); /* 半透明の白いオーバーレイ */
+    height: calc(100% + 50px); /* 100%に50pxを追加 */
     padding: 2rem;
-    max-width: 1800px;
-    width: 100%;
-    border-radius: 10px;
-    text-align: center;
-    justify-content: flex-end;
-}
-
-.about-content-top h2 {
-    font-size: 2em;
-    color: #3336f8;
-    margin-bottom: 10px;
-    order: 2;
-    text-align: right; /* 右寄せにする */
-    padding-right: 35%; /* 右側の余白を追加 */
-    margin-top: 100px;
-}
-
-.about-content-top h3 {
-    font-size: 2em; /* 現在のサイズの2倍に設定 */
-    color: #000000; /* 既存の色を維持 */
-    margin-bottom: 0.5em; /* 下のテキストとの間隔を調整 */
-    text-align: right;
-    margin-right: 0;
-    position: relative;
-    order: 1;
-    top: -40px;
-    margin-bottom: -40px;
-}
-
-.about-content-right h3 {
-    color: #3336f8;
-    border-bottom: 2px solid #3336f8; /* 下線を追加 */
-    padding-bottom: 5px; /* 下線とテキストの間隔を調整 */
-    margin-bottom: 50px; /* 下線と次の段落との間隔を調整 */
-    display: inline-block; /* 下線をテキストの幅に合わせる */
-    width: auto;
-}
-
-/* 右揃えの見出しに対する追加のスタイル */
-.about-item h3.right-align {
-    text-align: left;
-    float: left; /* 右揃えの見出しを右に寄せる */
-    clear: both; /* 浮動要素のクリア */
-}
-
-.about-item h3 {
-    color: #3336f8;
-    border-bottom: 2px solid #3336f8;
-    padding-bottom: 2px;
-    margin-bottom: 5px;
-    display: inline-block;
-    width: auto; /* 幅を100%に設定 */
-    text-align: left;
-}
-
-/* 段落のスタイル */
-.about-item p {
-    margin-top: 0; /* 見出しとの間隔を追加 */
-    clear: both;
-    line-height: 1.1;
-    text-align: left;
-}
-
-/* 浮動要素のクリアのための追加スタイル */
-.about-item::after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.about-content-right {
-    position: relative;
-    top: 50%;
-    left: 10%;
-    transform: translateY(-50%);
-    z-index: 2;
-    padding: 2rem;
-    max-width: 600px;
-    width: 50%;
-    border-radius: 10px;
-    margin: 0 auto;
-    top: -200px;
-}
-
-.about-content-top .single-line {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: right; /* テキストを右揃えにする */
-    margin-right: 0; /* 右側のマージンを追加（必要に応じて調整） */
-    font-size: 1.1em;
-    max-width: 120%;
-    width: 120%;
-    order: 3;
 }
 
 .about-item {
     margin-bottom: 0.1rem;
-    text-align: left;
+    text-align: center; /* 中央揃えから左揃えに変更 */
+    max-width: 800px; /* コンテンツの最大幅を設定 */
+    margin-left: auto; /* 左右のマージンを自動に設定 */
+    margin-right: auto;
+    padding-left: 20px; /* 左側に少しパディングを追加 */
 }
 
-.about-item.right-align {
-    text-align: left;
+.about-content-top h1 {
+    font-size: 2.2em;
+    text-align: center; /* 右寄せにする */
+    color: #3d72c0;
 }
 
-.about-item h3.right-align {
-    text-align: left;
+.about-content-top h2 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+    text-align: center; /* 右寄せにする */
 }
 
-.about-content-top p, .about-content-right p {
+.about-content-top h3 {
+    font-size: 1.2em; /* 現在のサイズの2倍に設定 */
+    text-align: center;
+}
+
+.about-content-top p {
     color: #333;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.about-item h4 {
+    border-bottom: 2px solid #333;; /* 下線を追加 */
+    display: inline-block; /* 下線をテキストの幅に合わせる */
+    padding-bottom: 0;
+    margin-bottom: 0; 
+    font-size: 1.2em;
+    color: #333;
+}
+
+.about-item p {
+    margin-top: 10px; /* pタグの上部マージンを削除 */
 }
 
 .slide-in {
     opacity: 0;
     transform: translateX(100%);
-    transition: opacity 1s ease-out, transform 1s ease-out;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 .slide-in.visible {
@@ -448,7 +369,7 @@ h1, h2, h3 {
 .fade-in {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 1s ease-out, transform 1s ease-out;
+    transition: opacity 2s ease-out, transform 2s ease-out;
 }
 
 .fade-in.visible {
@@ -460,24 +381,32 @@ h1, h2, h3 {
 #products {
     text-align: center; /* セクション全体を中央揃えに */
     padding: 1rem 0;
-    padding-top: 0;
+    padding-top: 100px;
+    background-color: #c5d6d6;
+    overflow: hidden;
+    padding-bottom: 180px; /* 下の余白を増やす */
 }
 
 #products h2 {
-    margin-bottom: 1rem; /* h2とh3の間隔を調整 */
+    margin-bottom: 2rem; /* h2とh3の間隔を調整 */
     font-size: 2.2em;
+    color: #3d72c0;
 }
 
 #products h3 {
     max-width: 800px; /* テキストの最大幅を設定 */
-    margin: 0 auto 1rem; /* 上下左右の余白を設定し、中央に配置 */
-    line-height: 1.1; /* 行間を調整 */
+    margin: 0 auto 0.1rem; /* 上下左右の余白を設定し、中央に配置 */
     font-size: 1.4em; /* フォントサイズを調整（必要に応じて） */
-    color: #000000;
+    color: #333;
+}
+
+#products h4 {
+    max-width: 800px; /* テキストの最大幅を設定 */
+    margin: 0 auto 0.1rem; /* 上下左右の余白を設定し、中央に配置 */
+    font-size: 1.4em; /* フォントサイズを調整（必要に応じて） */
 }
 
 #products p {
-    margin-bottom: 1rem; /* h2とh3の間隔を調整 */
     font-size: 1.1em;
     padding-bottom: -50px;
 }
@@ -492,22 +421,52 @@ h1, h2, h3 {
     border-radius: 8px;
 }
 
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2列のグリッドに設定 */
-    grid-auto-rows: 1fr;
-    gap: 2rem;
-    padding: 2rem 0;
-    max-width: 1200px; /* コンテナの最大幅を設定 */
-    margin: 0 auto; /* 中央揃え */
+
+.product-carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    position: relative;
+    perspective: 1500px; /* 3D効果を強調 */
+    margin-top: 120px; /* 上部に余白を追加 */
 }
 
-.product img {
+.product-item {
+    position: absolute;
+    width: 700px; /* 幅を縮小 */
+    height: 500px; /* 高さを縮小 */
+    transition: all 0.5s ease;
+    opacity: 0.7;
+    border-radius: 10px; /* 角を丸く */
+    background-color: white; /* 背景色を追加 */
+    transform: scale(0.8);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* シャドウを追加 */
+    overflow: hidden; /* 内容がはみ出ないように */
+}
+
+.product-item.active {
+    opacity: 1;
+    transform: scale(1.1);
+    z-index: 2;
+}
+
+.product-item img {
     width: 100%;
-    max-width: 470px;
-    height: 240px;
+    height: 380px; /* 画像の高さを縮小 */
     object-fit: cover;
-    margin-bottom: 1rem;
+}
+
+.product-item h3 {
+    font-size: 0.7em; /* フォントサイズを縮小 */
+    margin: 10px 0;
+    padding: 0 10px; /* 左右にパディングを追加 */
+}
+
+.product-item p {
+    font-size: 0.6em; /* フォントサイズを縮小 */
+    padding: 0 10px; /* 左右にパディングを追加 */
+    line-height: 1.4; /* 行間を調整 */
 }
 
 #message {
@@ -518,6 +477,8 @@ h1, h2, h3 {
     padding: 4rem 0;
     color: #000000; /* テキストの色を白に設定 */
     margin-bottom: 0;
+    padding-top: 5rem;
+    z-index: 1; /* 他の要素の上に表示されるようにする */
 }
 
 #message::before {
@@ -541,7 +502,7 @@ h1, h2, h3 {
 #message h2 {
     font-size: 2.5em;
     margin-bottom: 1.8rem;
-    color: #3336f8;
+    color: #3d72c0;
 }
 
 #message h3 {
@@ -568,6 +529,7 @@ h1, h2, h3 {
     text-align: center;
     margin-bottom: 2rem;
     font-size: 2.2em;
+    color: #3d72c0;
 }
 
 .company-container {
@@ -622,7 +584,7 @@ h1, h2, h3 {
     text-align: center;
     margin-bottom: 1.5rem;
     font-size: 2em;
-    color: #3336f8;
+    color: #3d72c0;
 }
 
 #contact-form {
@@ -643,14 +605,17 @@ h1, h2, h3 {
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: center; /* 内容を左揃えに */
 }
 
 .form-header {
-    background-color: #3336f8;
+    background-color: #3d72c0;
     color: #ffffff;
     padding: 0.75rem;
     margin: -1.5rem -1.5rem 1.5rem -1.5rem;
     border-radius: 8px 8px 0 0;
+    text-align: center; /* テキストを中央揃えに */
 }
 
 .form-header h3 {
@@ -661,6 +626,8 @@ h1, h2, h3 {
 
 .form-group {
     margin-bottom: 1rem;
+    max-width: 100%; /* コンテナの幅を制限 */
+    width: 100%;
 }
 
 .form-group label {
@@ -671,7 +638,7 @@ h1, h2, h3 {
 
 .form-group input,
 .form-group textarea {
-    width: 100%;
+    width: 97%;
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -680,6 +647,11 @@ h1, h2, h3 {
 
 .form-group textarea {
     resize: vertical;
+    width: 100%;
+}
+
+.form-group:last-of-type {
+    padding-bottom: 80px; /* 必要に応じて値を調整 */
 }
 
 .required {
@@ -690,7 +662,7 @@ button[type="submit"] {
     display: block;
     width: 200px;
     margin: 2rem auto 0;
-    background-color: #3336f8;
+    background-color: #3d72c0;
     color: #ffffff;
     border: none;
     padding: 0.95rem 1.5rem;
@@ -713,7 +685,6 @@ button[type="submit"]:hover {
 }
 
 #privacy-policy h3 {
-    color: #3336f8;
     margin-bottom: 1rem;
 }
 
@@ -738,7 +709,7 @@ button[type="submit"]:hover {
 
 /* フッター */
 footer {
-    background-color: #3336f8;
+    background-color: #3d72c0;
     color: white;
     padding: 2rem 0;
     margin-top: -60px;

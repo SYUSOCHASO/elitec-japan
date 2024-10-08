@@ -104,4 +104,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 5秒ごとに画像を切り替え
     setInterval(changeHeroImage, 5000);
+
+    // PRODUCTSセクションのカルーセル機能を追加
+    function setupProductCarousel() {
+        const carousel = document.querySelector('.product-carousel');
+        const items = carousel.querySelectorAll('.product-item');
+        let currentIndex = 0;
+
+        function positionItems() {
+            items.forEach((item, index) => {
+                const offset = (index - currentIndex + items.length) % items.length;
+                const angle = offset * (360 / items.length);
+                const radius = 860; // カルーセルの半径を縮小
+                const x = Math.sin(angle * Math.PI / 180) * radius;
+                const z = Math.cos(angle * Math.PI / 180) * radius - radius;
+        
+                item.style.transform = `translateX(${x}px) translateZ(${z}px) scale(${offset === 0 ? 1.1 : 0.8})`;
+                item.style.opacity = offset === 0 ? 1 : 0.7;
+                item.classList.toggle('active', offset === 0);
+            });
+        }
+
+        function rotateCarousel() {
+            currentIndex = (currentIndex + 1) % items.length;
+            positionItems();
+        }
+
+        positionItems();
+        setInterval(rotateCarousel, 6000); // 8秒ごとに回転
+    }
+
+    // PRODUCTSセクションのカルーセルを初期化
+    setupProductCarousel();
 });

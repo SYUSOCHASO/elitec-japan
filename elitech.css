@@ -215,7 +215,7 @@ nav ul li a {
     top: -30%; /* 上に100%はみ出させる */
     bottom: -30%; /* 下に100%はみ出させる */
     width: 1px;
-    background-color: #000000; /* 縦線の色 */
+    background-color: #bbb9b9; /* 縦線の色 */
 }
 
 #main-nav {
@@ -279,26 +279,26 @@ nav ul li a {
 #about {
     position: relative;
     overflow: hidden;
+    margin-bottom: -10px;
     margin-top: -50px; /* この値を調整して上に移動 */
-    margin-bottom: -50px;
 }
 
 .about-image {
     width: 100%; /* コンテナの幅いっぱいに広げる */
-    height: calc(90vh + 50px); /* 90vhに50pxを追加 */
+    height: calc(100vh + 100px); /* 90vhに50pxを追加 */
     object-fit: cover; /* 画像をコンテナにフィットさせる */
     object-position: center 20%; /* 画像の上部を表示 */
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
-    filter: brightness(110%) contrast(90%); /* 画像を白っぽくする */
+    filter: brightness(100%) contrast(100%); /* 画像を白っぽくする */
 }
 
 .about-image-container {
     position: relative;
     max-width: 100%; /* コンテナの最大幅を設定 */
-    height: calc(90vh + 50px); /* 90vhに50pxを追加 */
+    height: calc(100vh + 100px); /* 90vhに50pxを追加 */
     overflow: hidden;
 }
 
@@ -308,6 +308,7 @@ nav ul li a {
     background-color: rgba(255, 255, 255, 0.7); /* 半透明の白いオーバーレイ */
     height: calc(100% + 50px); /* 100%に50pxを追加 */
     padding: 2rem;
+    padding-top: 100px; /* ABOUTセクションのテキストを下に移動 */
 }
 
 .about-item {
@@ -322,7 +323,7 @@ nav ul li a {
 .about-content-top h1 {
     font-size: 2.2em;
     text-align: center; /* 右寄せにする */
-    color: #3d72c0;
+    color: #000000;
 }
 
 .about-content-top h2 {
@@ -381,23 +382,24 @@ nav ul li a {
 #products {
     text-align: center; /* セクション全体を中央揃えに */
     padding: 1rem 0;
-    padding-top: 100px;
-    background-color: #c5d6d6;
+    padding-top: 120px;
+    background-color: #2d3333;
     overflow: hidden;
-    padding-bottom: 180px; /* 下の余白を増やす */
+    padding-bottom: 250px; /* 下の余白を増やす */
+    margin-bottom: 0;
 }
 
 #products h2 {
     margin-bottom: 2rem; /* h2とh3の間隔を調整 */
     font-size: 2.2em;
-    color: #3d72c0;
+    color: #ffffff;
 }
 
 #products h3 {
     max-width: 800px; /* テキストの最大幅を設定 */
     margin: 0 auto 0.1rem; /* 上下左右の余白を設定し、中央に配置 */
     font-size: 1.4em; /* フォントサイズを調整（必要に応じて） */
-    color: #333;
+    color: #ffffff;
 }
 
 #products h4 {
@@ -416,9 +418,6 @@ nav ul li a {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
 }
 
 
@@ -478,6 +477,7 @@ nav ul li a {
     color: #000000; /* テキストの色を白に設定 */
     margin-bottom: 0;
     padding-top: 5rem;
+    padding-bottom: 100px;
     z-index: 1; /* 他の要素の上に表示されるようにする */
 }
 
@@ -502,7 +502,7 @@ nav ul li a {
 #message h2 {
     font-size: 2.5em;
     margin-bottom: 1.8rem;
-    color: #3d72c0;
+    color: #000000;
 }
 
 #message h3 {
@@ -521,15 +521,21 @@ nav ul li a {
 /* 会社情報、メッセージセクション */
 #company {
     padding: 4rem 0;
-    background-color: #f8f8f8;
-    margin-top: 0;
+    background-color: #f5f5f5;
+    margin-bottom: 80px;
+    padding-bottom: 200px;
+    padding-top: 150px;
+    background-image: url('image/company.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 #company h2 {
     text-align: center;
     margin-bottom: 2rem;
     font-size: 2.2em;
-    color: #3d72c0;
+    color: white;
 }
 
 .company-container {
@@ -542,8 +548,9 @@ nav ul li a {
 }
 
 .company-info {
-    width: 60%;
+    width: 45%;
     border-collapse: collapse;
+    color: #000000; /* 表のテキストを黒に */
 }
 
 .company-info th,
@@ -553,38 +560,43 @@ nav ul li a {
 }
 
 .company-info th {
-    width: 30%;
-    text-align: left;
+    width: 18%;
+    text-align: center;
     font-weight: bold;
-    background-color: #f0f0f0;
+    background-color: rgba(199, 199, 199, 0.8); /* 表の背景を半透明の白に */
 }
 
 .company-info td {
-    width: 70%;
+    width: 60%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); /* 表の背景を半透明の白に */
 }
 
 .company-logo {
-    width: 35%;
+    width: 45%;
     text-align: center;
 }
 
 .company-logo img {
     max-width: 100%;
     height: auto;
+    padding-top: 80px;
 }
 
 /* お問い合わせフォーム */
 #contact {
-    background-color: #f0f0f0;
+    background-color: #6b96d6;
     padding: 2rem 0;
-    margin-top: -50px;
+    margin-top: -80px;
+    padding-bottom: 100px;
+    padding-top: 120px;
 }
 
 #contact h2 {
     text-align: center;
     margin-bottom: 1.5rem;
     font-size: 2em;
-    color: #3d72c0;
+    color: #ffffff;
 }
 
 #contact-form {
@@ -610,7 +622,7 @@ nav ul li a {
 }
 
 .form-header {
-    background-color: #3d72c0;
+    background-color: #2d3333;
     color: #ffffff;
     padding: 0.75rem;
     margin: -1.5rem -1.5rem 1.5rem -1.5rem;
@@ -646,12 +658,16 @@ nav ul li a {
 }
 
 .form-group textarea {
-    resize: vertical;
     width: 100%;
+    height: 150px;
+    margin-top: 1.5rem; /* この行を追加 */
+    vertical-align: top; /* この行を追加 */
+    line-height: 1.5;
 }
 
-.form-group:last-of-type {
-    padding-bottom: 80px; /* 必要に応じて値を調整 */
+.form-group textarea::placeholder {
+    position: static;
+    line-height: 1.5;
 }
 
 .required {
@@ -662,7 +678,7 @@ button[type="submit"] {
     display: block;
     width: 200px;
     margin: 2rem auto 0;
-    background-color: #3d72c0;
+    background-color: #2d3333;
     color: #ffffff;
     border: none;
     padding: 0.95rem 1.5rem;
@@ -709,7 +725,7 @@ button[type="submit"]:hover {
 
 /* フッター */
 footer {
-    background-color: #3d72c0;
+    background-color: #2d3333;
     color: white;
     padding: 2rem 0;
     margin-top: -60px;

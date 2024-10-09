@@ -199,39 +199,63 @@ nav ul li a {
 /* 新しいメインナビゲーションのスタイル */
 #main-nav-wrapper {
     position: relative;
-    background-color: #f8f8f8;
-    padding: 1rem 0;
+    background-color: white;
+    padding: 0.6rem 0;
     margin-top: -50px;
-    overflow: hidden; /* はみ出た部分を隠す */
-}
-
-#main-nav-wrapper::before,
-#main-nav-wrapper::after,
-#main-nav ul::before,
-#main-nav ul::after,
-#main-nav ul li + li::before {
-    content: '';
-    position: absolute;
-    top: -30%; /* 上に100%はみ出させる */
-    bottom: -30%; /* 下に100%はみ出させる */
-    width: 1px;
-    background-color: #bbb9b9; /* 縦線の色 */
+    overflow: hidden;
+    width: 100%;
 }
 
 #main-nav {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20%;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 #main-nav ul {
     display: flex;
-    justify-content: space-between;
-    list-style: none;
+    justify-content: center;
+    align-items: stretch;
     padding: 0;
     margin: 0;
+    list-style-type: none;
+    width: 100%;
+    max-width: 1400px;
+    height: 60px; /* ナビゲーションの高さを設定 */
+}
+
+#main-nav ul li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
     align-items: center;
+    flex: 0 1 auto; /* 各項目を均等な幅に設定 */
+}
+
+#main-nav ul li:not(:last-child)::after,
+#main-nav ul::before,
+#main-nav ul::after {
+    content: '';
+    position: absolute;
+    top: -15%; /* 上に少し伸ばす */
+    right: 0;
+    height: 130%; /* 線の長さを調整 */
+    width: 1px;
+    background-color: #d4d4d4; /* 線の色 */
+    pointer-events: none; /* 線がホバー効果を妨げないようにする */
+}
+
+#main-nav ul::before,
+#main-nav ul::after {
+    content: '';
+    position: absolute;
+    top: -15%;
+    height: 130%;
+    width: 1px;
+    background-color: #d4d4d4;
 }
 
 #main-nav ul::before {
@@ -242,33 +266,24 @@ nav ul li a {
     right: 0;
 }
 
-#main-nav ul li {
-    position: relative;
-    padding: 0 30px;
-    flex: 1; /* 均等に幅を分配 */
-    display: flex; /* Flexboxを使用 */
-    align-items: stretch; /* 子要素を縦に引き伸ばす */
-}
-
-#main-nav ul li::before {
-    left: 0;
-}
-
 #main-nav ul li a {
     color: #000000;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 1.6em;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    padding: 5px 15px;
-    border: 2px solid transparent;
-    border-radius: 5px;
+    padding: 10px 40px; /* 左右のパディングを増やす */
+    transition: background-color 0.3s ease;
+    justify-content: center; /* テキストを中央揃え */
     display: flex;
-    z-index: 1; /* 縦線の上にテキストを表示 */
-    justify-content: center;
     align-items: center;
-    width: 100%; /* 親要素の幅いっぱいに */
-    height: 100%; /* 親要素の高さいっぱいに */
+    height: 100%; /* リンクの高さをli要素いっぱいに */
+    width: 100%; /* リンクの幅をli要素いっぱいに */
+    white-space: nowrap; /* テキストの折り返しを防ぐ */
+    font-size: 20px; /* フォントサイズを小さくする（必要に応じて調整） */
+    font-weight: bold; /* この行を追加 */
+}
+
+#main-nav ul li a.spaced-item {
+    padding: 10px 60px; /* 左右のマージンを追加 */
+    font-weight: bold; /* この行を追加 */
 }
 
 #main-nav ul li a:hover {
@@ -442,6 +457,10 @@ nav ul li a {
     transform: scale(0.8);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* シャドウを追加 */
     overflow: hidden; /* 内容がはみ出ないように */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .product-item.active {
@@ -454,6 +473,51 @@ nav ul li a {
     width: 100%;
     height: 380px; /* 画像の高さを縮小 */
     object-fit: cover;
+}
+
+.product-item:first-child img {
+    transform: rotate(90deg);
+    object-fit: contain;
+    width: 510px;
+    height: 327px; /* 画像の高さを縮小 */
+    margin-left: -90px;
+    border-radius: 10px; /* 角を丸く */
+}
+
+.product-item:first-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center !important;
+    overflow: hidden;
+    text-align: left !important;
+    padding-left: -120px; /* 左側にパディングを追加 */
+    padding-right: 120px; /* 左側にパディングを追加 */
+}
+
+.product-item:first-child .product-text {
+    flex: 1;
+    max-width: 100%; /* テキストの最大幅を設定 */
+}
+
+.product-item:first-child h4 {
+    font-size: 1.2em; /* 見出しのフォントサイズを大きくする */
+    margin-bottom: 10px;
+    white-space: nowrap; /* 見出しを1行に */
+}
+
+.product-item:first-child p {
+    font-size: 1em; /* 本文のフォントサイズを大きくする */
+    line-height: 1.5;
+    white-space: normal; /* テキストの折り返しを許可 */
+    word-wrap: break-word; /* 長い単語の折り返しを許可 */
+}
+
+
+/* 他の製品項目は元の縦並びレイアウトを維持 */
+.product-item:not(:first-child) {
+    flex-direction: column;
+    text-align: center;
 }
 
 .product-item h3 {

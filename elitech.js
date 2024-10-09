@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fadeElements.forEach((element, index) => {
             setTimeout(() => {
                 element.classList.add('visible');
-            }, (index + 1) * 500); // 各要素を0.5秒ずつ遅らせてフェードイン
+            }, (index + 1) * 800 + 1600); // 各要素を0.5秒ずつ遅らせてフェードイン
         });
     }
 
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         slideElements.forEach((element, index) => {
             setTimeout(() => {
                 element.classList.add('visible');
-            }, index * 500); // 各要素を0.5秒ずつ遅らせてスライドイン
+            }, index * 1200 + 700); // 各要素を0.5秒ずつ遅らせてスライドイン
         });
     }
 

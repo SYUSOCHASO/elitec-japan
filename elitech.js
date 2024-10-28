@@ -1,10 +1,107 @@
-// DOMの読み込みが完了したら実行
 document.addEventListener('DOMContentLoaded', function() {
+    function createWaterAnimation() {
+        const waterContainer = document.querySelector('.water-animation');
+        const particleCount = 40;
+        const particles = [];
+        
+        // オフスクリーンレンダリングの準備
+        const fragment = document.createDocumentFragment();
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'water-particle';
+            setParticlePosition(particle);
+            fragment.appendChild(particle);
+            particles.push(particle);
+        }
+        
+        // 一括でDOMに追加
+        waterContainer.appendChild(fragment);
+        
+        // アニメーションの一括開始
+        particles.forEach(particle => startParticleAnimation(particle));
+    }
+
+    function setParticlePosition(particle) {
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        const z = Math.random() * 2000 - 1000;
+        const scale = Math.random() * 0.5 + 0.4;
+        
+        particle.style.transform = `translate3d(${x}px, ${y}px, ${z}px) scale(${scale})`;
+        particle.style.opacity = Math.random() * 0.7 + 0.3;
+    }
+
+    function startParticleAnimation(particle) {
+        function animate() {
+            const duration = Math.random() * 8000 + 7000;
+            const targetX = Math.random() * window.innerWidth;
+            const targetY = Math.random() * window.innerHeight;
+            const targetZ = Math.random() * 2000 - 1000;
+            const targetScale = Math.random() * 0.5 + 0.4;
+
+            particle.animate([
+                { transform: particle.style.transform },
+                { 
+                    transform: `translate3d(${targetX}px, ${targetY}px, ${targetZ}px) scale(${targetScale})`,
+                    opacity: Math.random() * 0.7 + 0.3
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                fill: 'forwards'
+            }).onfinish = () => {
+                // アニメーション終了時に新しい位置を設定して再アニメーション
+                particle.style.transform = `translate3d(${targetX}px, ${targetY}px, ${targetZ}px) scale(${targetScale})`;
+                requestAnimationFrame(animate);
+            };
+        }
+        
+        animate();
+    }
+
+    // リサイズ時の処理を最適化
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        if (resizeTimeout) {
+            clearTimeout(resizeTimeout);
+        }
+        resizeTimeout = setTimeout(() => {
+            const particles = document.querySelectorAll('.water-particle');
+            particles.forEach(setParticlePosition);
+        }, 250);
+    });
+
+    // マウスインタラクション
+    function addMouseInteraction() {
+        const container = document.querySelector('.water-animation');
+        let rafId;
+        
+        container.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            const mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+            const mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+            
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(() => {
+                container.style.transform = `rotateY(${mouseX * 10}deg) rotateX(${-mouseY * 10}deg)`;
+            });
+        });
+        
+        container.addEventListener('mouseleave', () => {
+            if (rafId) cancelAnimationFrame(rafId);
+            container.style.transform = 'rotateY(0deg) rotateX(0deg)';
+        });
+    }
+
+    // アニメーションの初期化
+    createWaterAnimation();
+    addMouseInteraction();
+
     // スムーズスクロール
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-
             document.querySelector(this.getAttribute('href')).scrollIntoView({
                 behavior: 'smooth'
             });
@@ -26,10 +123,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            // ここにフォーム送信の処理を追加
             alert('お問い合わせありがとうございます。まもなくご連絡いたします。');
             this.reset();
-            // チェックボックスと送信ボタンの状態をリセット
             if (consentCheckbox && submitButton) {
                 consentCheckbox.checked = false;
                 submitButton.disabled = true;
@@ -43,12 +138,54 @@ document.addEventListener('DOMContentLoaded', function() {
         heroElements.forEach((element, index) => {
             setTimeout(() => {
                 element.classList.add('visible');
-            }, index * 500); // 各要素を0.5秒ずつ遅らせてアニメーション開始
+            }, index * 500);
         });
     }
 
-    // ページ読み込み後、200ミリ秒後にヒーローセクションのアニメーションを開始
     setTimeout(startHeroAnimation, 200);
+
+    // ヒーローセクションのマウス追従カーソルと波紋エフェクト
+    const hero = document.getElementById('hero');
+    const rippleContainer = document.querySelector('.ripple-container');
+    
+    if (hero && rippleContainer) {
+        // カスタムカーソルの要素を作成
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        hero.appendChild(cursor);
+
+        // マウスの動きに合わせてカーソルを移動（ヒーローセクション内のみ）
+        hero.addEventListener('mousemove', function(e) {
+            cursor.style.opacity = '1';
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // ヒーローセクションからマウスが離れた時
+        hero.addEventListener('mouseleave', function() {
+            cursor.style.opacity = '0';
+        });
+
+        // クリック時の波紋エフェクト
+        rippleContainer.addEventListener('click', function(e) {
+            const rect = rippleContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            for (let i = 1; i <= 3; i++) {
+                const ripple = document.createElement('div');
+                ripple.className = `ripple ripple-${i}`;
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                rippleContainer.appendChild(ripple);
+                
+                ripple.addEventListener('animationend', function() {
+                    ripple.remove();
+                });
+            }
+        });
+    }
 
     // フェードインアニメーション
     function fadeInElements() {
@@ -56,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fadeElements.forEach((element, index) => {
             setTimeout(() => {
                 element.classList.add('visible');
-            }, (index + 1) * 800 + 1600); // 各要素を0.5秒ずつ遅らせてフェードイン
+            }, (index + 1) * 800 + 1600);
         });
     }
 
@@ -66,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
         slideElements.forEach((element, index) => {
             setTimeout(() => {
                 element.classList.add('visible');
-            }, index * 1200 + 700); // 各要素を0.5秒ずつ遅らせてスライドイン
+            }, index * 1200 + 700);
         });
     }
 
@@ -85,55 +222,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('scroll', checkAnimationPosition);
 
-    // ヒーローセクションの画像切り替え
-    const heroImages = document.querySelectorAll('.hero-image');
-    let currentImageIndex = 0;
-
-    function changeHeroImage() {
-        const nextImageIndex = (currentImageIndex + 1) % heroImages.length;
-        heroImages[nextImageIndex].style.zIndex = 3;
-        heroImages[nextImageIndex].classList.add('active');
-        
-        setTimeout(() => {
-            heroImages[currentImageIndex].classList.remove('active');
-            heroImages[currentImageIndex].style.zIndex = 1;
-            heroImages[nextImageIndex].style.zIndex = 2;
-            currentImageIndex = nextImageIndex;
-        }, 1000); // トランジション時間と同じ1秒後に実行
+    // PRODUCTSセクションの新しいアニメーション
+    function animateProducts() {
+        const productItems = document.querySelectorAll('.product-item');
+        const triggerBottom = window.innerHeight * 0.85;
+    
+        productItems.forEach((item, index) => {
+            const itemTop = item.getBoundingClientRect().top;
+            
+            if (itemTop < triggerBottom) {
+                setTimeout(() => {
+                    item.classList.add('animate');
+                }, index * 150);
+            }
+        });
     }
-
-    // 5秒ごとに画像を切り替え
-    setInterval(changeHeroImage, 5000);
-
-    // PRODUCTSセクションのカルーセル機能を追加
-    function setupProductCarousel() {
-        const carousel = document.querySelector('.product-carousel');
-        const items = carousel.querySelectorAll('.product-item');
-        let currentIndex = 0;
-
-        function positionItems() {
-            items.forEach((item, index) => {
-                const offset = (index - currentIndex + items.length) % items.length;
-                const angle = offset * (360 / items.length);
-                const radius = 860; // カルーセルの半径を縮小
-                const x = Math.sin(angle * Math.PI / 180) * radius;
-                const z = Math.cos(angle * Math.PI / 180) * radius - radius;
-        
-                item.style.transform = `translateX(${x}px) translateZ(${z}px) scale(${offset === 0 ? 1.1 : 0.8})`;
-                item.style.opacity = offset === 0 ? 1 : 0.7;
-                item.classList.toggle('active', offset === 0);
-            });
+    
+    // スクロールイベントの最適化
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (scrollTimeout) {
+            window.cancelAnimationFrame(scrollTimeout);
         }
+        scrollTimeout = window.requestAnimationFrame(() => {
+            animateProducts();
+        });
+    });
 
-        function rotateCarousel() {
-            currentIndex = (currentIndex + 1) % items.length;
-            positionItems();
-        }
-
-        positionItems();
-        setInterval(rotateCarousel, 6000); // 8秒ごとに回転
-    }
-
-    // PRODUCTSセクションのカルーセルを初期化
-    setupProductCarousel();
+    // 初期チェック
+    animateProducts();
 });

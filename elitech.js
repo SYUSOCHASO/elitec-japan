@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     function createWaterAnimation() {
         const waterContainer = document.querySelector('.water-animation');
-        const particleCount = 40;
+        const particleCount = 30;
         const particles = [];
         
         // オフスクリーンレンダリングの準備

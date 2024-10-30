@@ -1,103 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    function createWaterAnimation() {
-        const waterContainer = document.querySelector('.water-animation');
-        const particleCount = 30;
-        const particles = [];
-        
-        // オフスクリーンレンダリングの準備
-        const fragment = document.createDocumentFragment();
-        
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'water-particle';
-            setParticlePosition(particle);
-            fragment.appendChild(particle);
-            particles.push(particle);
-        }
-        
-        // 一括でDOMに追加
-        waterContainer.appendChild(fragment);
-        
-        // アニメーションの一括開始
-        particles.forEach(particle => startParticleAnimation(particle));
-    }
-
-    function setParticlePosition(particle) {
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-        const z = Math.random() * 2000 - 1000;
-        const scale = Math.random() * 0.5 + 0.4;
-        
-        particle.style.transform = `translate3d(${x}px, ${y}px, ${z}px) scale(${scale})`;
-        particle.style.opacity = Math.random() * 0.7 + 0.3;
-    }
-
-    function startParticleAnimation(particle) {
-        function animate() {
-            const duration = Math.random() * 8000 + 7000;
-            const targetX = Math.random() * window.innerWidth;
-            const targetY = Math.random() * window.innerHeight;
-            const targetZ = Math.random() * 2000 - 1000;
-            const targetScale = Math.random() * 0.5 + 0.4;
-
-            particle.animate([
-                { transform: particle.style.transform },
-                { 
-                    transform: `translate3d(${targetX}px, ${targetY}px, ${targetZ}px) scale(${targetScale})`,
-                    opacity: Math.random() * 0.7 + 0.3
-                }
-            ], {
-                duration: duration,
-                easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-                fill: 'forwards'
-            }).onfinish = () => {
-                // アニメーション終了時に新しい位置を設定して再アニメーション
-                particle.style.transform = `translate3d(${targetX}px, ${targetY}px, ${targetZ}px) scale(${targetScale})`;
-                requestAnimationFrame(animate);
-            };
-        }
-        
-        animate();
-    }
-
-    // リサイズ時の処理を最適化
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        if (resizeTimeout) {
-            clearTimeout(resizeTimeout);
-        }
-        resizeTimeout = setTimeout(() => {
-            const particles = document.querySelectorAll('.water-particle');
-            particles.forEach(setParticlePosition);
-        }, 250);
-    });
-
-    // マウスインタラクション
-    function addMouseInteraction() {
-        const container = document.querySelector('.water-animation');
-        let rafId;
-        
-        container.addEventListener('mousemove', (e) => {
-            const rect = container.getBoundingClientRect();
-            const mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-            const mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-            
-            if (rafId) cancelAnimationFrame(rafId);
-            rafId = requestAnimationFrame(() => {
-                container.style.transform = `rotateY(${mouseX * 10}deg) rotateX(${-mouseY * 10}deg)`;
-            });
-        });
-        
-        container.addEventListener('mouseleave', () => {
-            if (rafId) cancelAnimationFrame(rafId);
-            container.style.transform = 'rotateY(0deg) rotateX(0deg)';
-        });
-    }
-
-    // アニメーションの初期化
-    createWaterAnimation();
-    addMouseInteraction();
-
     // スムーズスクロール
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -231,9 +132,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const itemTop = item.getBoundingClientRect().top;
             
             if (itemTop < triggerBottom) {
+                // ランダムな遅延を追加してより自然な動きに
                 setTimeout(() => {
                     item.classList.add('animate');
-                }, index * 150);
+                }, index * 150); // 遅延時間を少し長めに
             }
         });
     }

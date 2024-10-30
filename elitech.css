@@ -1,4 +1,4 @@
-/* 全体のスタイル最適化 */
+/* 全体のスタイル */
 body {
     line-height: 1.6;
     color: #333;
@@ -12,12 +12,25 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'M PLUS 1p', 'Zen Kaku Gothic New', 'Noto Sans JP', 'Kosugi Maru', 'Sawarabi Gothic', sans-serif;
 }
 
+header {
+    position: fixed;  /* 画面上部に固定 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;  /* 他の要素より前面に表示 */
+    padding: 1rem 0;
+}
+
 nav {
     display: flex;
-    justify-content: column;
+    justify-content: space-between;  /* 両端に配置 */
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
     z-index: 2;
     position: relative;
+    margin-top: 30px;
 }
 
 /* メインコンテンツ */
@@ -56,6 +69,13 @@ nav ul li {
 nav ul li a {
     color: white;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;  /* アイコンとテキストの間隔 */
+}
+
+nav ul li a i {
+    font-size: 1.2em;  /* アイコンのサイズ */
 }
 
 #hero {
@@ -63,7 +83,269 @@ nav ul li a {
     width: 100%;
     height: 92vh;
     overflow: hidden;
+    margin-top: 75px;  /* ヘッダーの高さ分だけ下げる */
     cursor: none; /* デフォルトのカーソルを非表示 */
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(240, 240, 255, 1) 100%
+    );
+}
+
+.hero-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.hero-text-top {
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    text-align: left;
+}
+
+.hero-text-top .en {
+    font-size: 2.8em;  /* 2emから2.8emに変更 */
+    color: #333;
+    margin-bottom: 0.8rem;  /* マージンも少し広げる */
+    font-weight: bold;
+    line-height: 1.2;  /* 行間を調整 */
+    opacity: 0;  /* 初期状態は非表示 */
+    animation: slideInFromLeft 1.5s ease-out forwards;
+    animation-delay: 1s;  /* 1秒後に開始 */
+}
+
+.hero-text-top .jp {
+    font-size: 2em;  /* 1.5emから2emに変更 */
+    color: #333;
+    margin-top: 0;
+    line-height: 1.4;  /* 行間を調整 */
+    opacity: 0;
+    animation: fadeInUp 1.5s ease-out forwards;
+    animation-delay: 2.2s;  /* 2.2秒後に開始 */
+}
+
+.hero-text-bottom {
+    position: absolute;
+    bottom: 15%;
+    right: 10%;
+    text-align: right;
+}
+
+.hero-text-bottom .company-name {
+    font-size: 1.9em;
+    color: #333;
+    font-weight: bold;
+    opacity: 0;
+    animation: fadeInRight 1.5s ease-out forwards;
+    animation-delay: 3.4s;  /* 3.4秒後に開始 */
+}
+
+/* テキストにホバーエフェクトを追加 */
+.hero-text-top .en,
+.hero-text-top .jp,
+.hero-text-bottom .company-name {
+    transition: transform 0.3s ease;
+}
+
+.hero-text-top .en:hover,
+.hero-text-top .jp:hover,
+.hero-text-bottom .company-name:hover {
+    transform: scale(1.02);
+}
+
+/* テキストに微妙な影を追加 */
+.hero-text-top .en,
+.hero-text-top .jp,
+.hero-text-bottom .company-name {
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.45);
+}
+
+/* アニメーションの定義 */
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInRight {
+    0% {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 球体のスタイルを追加 */
+.floating-bubbles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.bubble {
+    position: absolute;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(0, 149, 255, 0.8) 20%,
+        rgba(0, 123, 255, 0.6) 40%,
+        rgba(64, 190, 255, 0.4) 60%,
+        rgba(0, 149, 255, 0) 100%
+    );
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+/* 異なる動きパターンを持つ球体を生成 */
+.bubble:nth-child(1) { width: 80px; height: 80px; top: 10%; left: 10%; animation: float1 18s ease-in-out infinite; }
+.bubble:nth-child(2) { width: 60px; height: 60px; top: 20%; left: 20%; animation: float2 22s ease-in-out infinite; }
+.bubble:nth-child(3) { width: 40px; height: 40px; top: 80%; left: 35%; animation: float3 15s ease-in-out infinite; }
+.bubble:nth-child(4) { width: 70px; height: 70px; top: 15%; left: 50%; animation: float4 21s ease-in-out infinite; }
+.bubble:nth-child(5) { width: 50px; height: 50px; top: 90%; left: 65%; animation: float5 16s ease-in-out infinite; }
+.bubble:nth-child(6) { width: 45px; height: 45px; top: 40%; left: 80%; animation: float1 19s ease-in-out infinite; }
+.bubble:nth-child(7) { width: 55px; height: 55px; top: 70%; left: 25%; animation: float2 24s ease-in-out infinite; }
+.bubble:nth-child(8) { width: 65px; height: 65px; top: 5%; left: 40%; animation: float3 18s ease-in-out infinite; }
+.bubble:nth-child(9) { width: 35px; height: 35px; top: 85%; left: 60%; animation: float4 14s ease-in-out infinite; }
+.bubble:nth-child(10) { width: 75px; height: 75px; top: 30%; left: 75%; animation: float5 21s ease-in-out infinite; }
+.bubble:nth-child(11) { width: 45px; height: 45px; top: 95%; left: 15%; animation: float1 17s ease-in-out infinite; }
+.bubble:nth-child(12) { width: 55px; height: 55px; top: 25%; left: 30%; animation: float2 20s ease-in-out infinite; }
+.bubble:nth-child(13) { width: 40px; height: 40px; top: 75%; left: 45%; animation: float3 23s ease-in-out infinite; }
+.bubble:nth-child(14) { width: 60px; height: 60px; top: 45%; left: 55%; animation: float4 18s ease-in-out infinite; }
+.bubble:nth-child(15) { width: 50px; height: 50px; top: 8%; left: 70%; animation: float5 15s ease-in-out infinite; }
+.bubble:nth-child(16) { width: 70px; height: 70px; top: 60%; left: 85%; animation: float1 21s ease-in-out infinite; }
+.bubble:nth-child(17) { width: 45px; height: 45px; top: 88%; left: 5%; animation: float2 17s ease-in-out infinite; }
+.bubble:nth-child(18) { width: 65px; height: 65px; top: 35%; left: 90%; animation: float3 20s ease-in-out infinite; }
+.bubble:nth-child(19) { width: 35px; height: 35px; top: 92%; left: 95%; animation: float4 24s ease-in-out infinite; }
+.bubble:nth-child(20) { width: 55px; height: 55px; top: 3%; left: 3%; animation: float5 18s ease-in-out infinite; }
+.bubble:nth-child(21) { width: 48px; height: 48px; top: 50%; left: 8%; animation: float1 19s ease-in-out infinite; }
+.bubble:nth-child(22) { width: 62px; height: 62px; top: 12%; left: 45%; animation: float2 23s ease-in-out infinite; }
+.bubble:nth-child(23) { width: 38px; height: 38px; top: 65%; left: 92%; animation: float3 16s ease-in-out infinite; }
+.bubble:nth-child(24) { width: 72px; height: 72px; top: 82%; left: 28%; animation: float4 22s ease-in-out infinite; }
+.bubble:nth-child(25) { width: 52px; height: 52px; top: 18%; left: 88%; animation: float5 17s ease-in-out infinite; }
+.bubble:nth-child(26) { width: 58px; height: 58px; top: 78%; left: 15%; animation: float1 20s ease-in-out infinite; }
+.bubble:nth-child(27) { width: 42px; height: 42px; top: 28%; left: 62%; animation: float2 15s ease-in-out infinite; }
+.bubble:nth-child(28) { width: 68px; height: 68px; top: 55%; left: 78%; animation: float3 21s ease-in-out infinite; }
+.bubble:nth-child(29) { width: 44px; height: 44px; top: 98%; left: 38%; animation: float4 18s ease-in-out infinite; }
+.bubble:nth-child(30) { width: 56px; height: 56px; top: 1%; left: 82%; animation: float5 24s ease-in-out infinite; }
+
+/* 複数の異なる浮遊パターン */
+@keyframes float1 {
+    0% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(200px, -250px);
+    }
+    50% {
+        transform: translate(300px, 100px);
+    }
+    75% {
+        transform: translate(-200px, 200px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes float2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(-250px, 200px);
+    }
+    50% {
+        transform: translate(-300px, -250px);
+    }
+    75% {
+        transform: translate(250px, -200px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes float3 {
+    0% {
+        transform: translate(0, 0);
+    }
+    33% {
+        transform: translate(250px, 200px);
+    }
+    66% {
+        transform: translate(-250px, -200px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes float4 {
+    0% {
+        transform: translate(0, 0);
+    }
+    20% {
+        transform: translate(-200px, -250px);
+    }
+    40% {
+        transform: translate(250px, -200px);
+    }
+    60% {
+        transform: translate(300px, 200px);
+    }
+    80% {
+        transform: translate(-250px, 150px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes float5 {
+    0% {
+        transform: translate(0, 0);
+    }
+    30% {
+        transform: translate(250px, -200px);
+    }
+    50% {
+        transform: translate(-200px, -250px);
+    }
+    70% {
+        transform: translate(200px, 250px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
 }
 
 .hero-logo {
@@ -84,80 +366,20 @@ nav ul li a {
     height: 80vh; /* ビューポートの高さの80%に設定 */
     max-height: 250px; /* 最大高さを制限 */
     object-fit: contain;
+    filter: brightness(0.6) contrast(3.2);  /* 明るさを80%に、コントラストを120%に */
+    opacity: 0;  /* 初期状態は非表示 */
+    animation: fadeIn 4s ease-out forwards;  /* 5秒かけてフェードイン */
+    animation-delay: 0.5s;  /* 0.5秒後に開始 */
 }
 
-/* 水のアニメーション用のスタイル */
-.water-particle {
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    pointer-events: none;
-    will-change: transform;
-    transform-style: preserve-3d;
-    border-radius: 50%;
-    contain: layout style paint; /* パフォーマンス最適化 */
-}
-
-.water-particle::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: radial-gradient(
-        circle at 30% 30%,
-        rgba(255, 255, 255, 0.9) 0%,
-        rgba(0, 149, 255, 0.8) 20%,
-        rgba(0, 123, 255, 0.6) 40%,
-        rgba(64, 190, 255, 0.4) 60%,
-        rgba(0, 149, 255, 0) 100%
-    );
-    box-shadow: 
-        inset -2px -2px 4px rgba(0, 0, 0, 0.1),
-        inset 2px 2px 4px rgba(255, 255, 255, 0.2);
-    /* 外側の青いbox-shadowを削除 */
-    transform: translateZ(0);
-    backface-visibility: hidden;
-}
-
-.water-particle::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: radial-gradient(
-        circle at 70% 70%,
-        rgba(255, 255, 255, 0.9) 0%,
-        rgba(0, 149, 255, 0.8) 20%,
-        rgba(0, 123, 255, 0.6) 40%,
-        rgba(64, 190, 255, 0.4) 60%,
-        rgba(0, 149, 255, 0) 100%
-    );
-    box-shadow: 
-        inset -2px -2px 4px rgba(0, 0, 0, 0.1),
-        inset 2px 2px 4px rgba(255, 255, 255, 0.2);
-    transform: translateZ(-1px) rotateY(180deg);
-    backface-visibility: hidden;
-}
-
-.water-animation {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: white;
-    overflow: hidden;
-    z-index: 1;
-    perspective: 2000px;
-    transform-style: preserve-3d;
-    contain: layout style paint; /* パフォーマンス最適化 */
-    background: radial-gradient(
-        circle at center,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(240, 240, 255, 1) 100%
-    );
+/* フェードインアニメーションの定義 */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .custom-cursor {
@@ -370,11 +592,11 @@ nav ul li a {
 }
 
 #main-nav ul::before {
-    left: 0;
+    left: 30px;
 }
 
 #main-nav ul::after {
-    right: 0;
+    right: 30px;
 }
 
 #main-nav ul li a {
@@ -1090,6 +1312,28 @@ footer {
 
     nav ul li {
         margin: 0.5rem 0;
+    }
+
+    .hero-text-top {
+        top: 5%;
+        left: 5%;
+    }
+
+    .hero-text-top .en {
+        font-size: 2em;  /* モバイル用のサイズも調整 */
+    }
+
+    .hero-text-top .jp {
+        font-size: 1.6em;  /* モバイル用のサイズも調整 */
+    }
+
+    .hero-text-bottom {
+        bottom: 5%;
+        right: 5%;
+    }
+
+    .hero-text-bottom .company-name {
+        font-size: 1.4em;
     }
 
     .hero-logo .logo-image {

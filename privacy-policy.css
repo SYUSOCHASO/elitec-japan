@@ -48,3 +48,38 @@ ul, ol {
 li {
     margin-bottom: 0.5rem;
 }
+
+/* PC版では改行を無効化 */
+.sp-br {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sp-br {
+        display: block;  /* 改行として表示 */
+        height: 0;      /* 高さを0に */
+        margin: 0;      /* マージンを0に */
+        padding: 0;     /* パディングを0に */
+    }
+
+    /* 必要に応じてテキストサイズも調整 */
+    #privacy-policy {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    p, li {
+        font-size: 0.9em;
+    }
+}

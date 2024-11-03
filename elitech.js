@@ -24,12 +24,39 @@ document.addEventListener('DOMContentLoaded', function() {
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('お問い合わせありがとうございます。まもなくご連絡いたします。');
+            
+            // フォームの値を取得
+            const name = document.getElementById('name').value;
+            const furigana = document.getElementById('furigana').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const message = document.getElementById('message').value;
+
+            // メール本文を作成
+            const mailBody = `
+お名前: ${name}
+ふりがな: ${furigana}
+電話番号: ${phone}
+メールアドレス: ${email}
+ご住所: ${address}
+
+お問い合わせ内容:
+${message}
+            `.trim();
+
+            // メールリンクを作成して自動的に開く
+            const mailtoLink = `mailto:miura.elitech@elitechjapan.jp?subject=お問い合わせ&body=${encodeURIComponent(mailBody)}`;
+            window.location.href = mailtoLink;
+
+            // フォームをリセット
             this.reset();
             if (consentCheckbox && submitButton) {
                 consentCheckbox.checked = false;
                 submitButton.disabled = true;
             }
+            
+            alert('メーラーが起動します。送信ボタンを押して送信してください。');
         });
     }
 
@@ -132,10 +159,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const itemTop = item.getBoundingClientRect().top;
             
             if (itemTop < triggerBottom) {
-                // ランダムな遅延を追加してより自然な動きに
                 setTimeout(() => {
                     item.classList.add('animate');
-                }, index * 150); // 遅延時間を少し長めに
+                }, index * 150);
             }
         });
     }

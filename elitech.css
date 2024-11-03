@@ -632,6 +632,18 @@ nav ul li a i {
     margin-bottom: 0; /* 下部のマージンを削除 */
 }
 
+/* PC・モバイルでの表示制御 */
+.pc-only {
+    display: block;
+}
+.sp-only {
+    display: none;
+}
+
+.sp-br {
+    display: none;  /* PC版では非表示 */
+}
+
 .about-content {
     position: relative;
     z-index: 4; /* 画像の上にコンテンツを配置 */
@@ -723,6 +735,7 @@ nav ul li a i {
     overflow: hidden; /* 追加：はみ出た部分を隠す */
     margin-left: calc(-50vw + 50%); /* 左端まで広げる */
     margin-right: calc(-50vw + 50%); /* 右端まで広げる */
+    z-index: 1;
 }
 
 .loader h1 {
@@ -731,6 +744,7 @@ nav ul li a i {
     color: #000000;
     margin: 0;
     padding-top: 50px;
+    z-index: 1;
 }
 
 .loader-bg {
@@ -742,6 +756,7 @@ nav ul li a i {
     z-index: 2;
     bottom: -50px;
     animation: wave 18s linear infinite; /* アニメーションを線形で無限ループ */
+    z-index: 1;
 }
 
 .drops {
@@ -752,7 +767,7 @@ nav ul li a i {
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: -1;
+    z-index: -1000;
 }
 
 .drop1, .drop2 {
@@ -761,32 +776,34 @@ nav ul li a i {
     height: 100px;
     background: rgb(1, 168, 180);
     border-radius: 50%;
-    z-index: -1;
+    z-index: -1000;
 }
 
 /* 固定される水滴 */
 .drop1 {
     right: 47.5%;
-    top: 3%;
+    top: 5%;
+    z-index: -1000;
     /* アニメーションなし - 固定位置 */
 }
 
 /* 落下する水滴 */
 .drop2 {
     right: 47.5%;
-    top: 3%;
+    top: 5%;
     align-items: center;
     animation: dropVertical 3s linear infinite;
     animation-delay: 2s;
+    z-index: -1000;
 }
 
 @keyframes dropVertical {
     0% {
-        top: 3%; /* 画面上から開始 */
+        top: 5%; /* 画面上から開始 */
         opacity: 1;
     }
     100% {
-        top: 75%; /* 画面下まで落下 */
+        top: 120%; /* 画面下まで落下 */
         opacity: 1;
     }
 }
@@ -1295,8 +1312,15 @@ footer {
 }
 
 @media (max-width: 768px) {
-    nav {
-        flex-direction: column;
+    /* ヘッダーを非表示 */
+    header {
+        display: none;
+    }
+
+    /* ヒーローセクションのロゴサイズ調整 */
+    .hero-logo img {
+        width: 100px;  /* または希望のサイズ */
+        height: auto;  /* アスペクト比を維持 */
     }
 
     .logo {
@@ -1305,40 +1329,26 @@ footer {
         margin-bottom: 1rem;
     }
 
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    nav ul li {
-        margin: 0.5rem 0;
-    }
-
     .hero-text-top {
         top: 5%;
         left: 5%;
     }
 
     .hero-text-top .en {
-        font-size: 2em;  /* モバイル用のサイズも調整 */
+        font-size: 1.5em;  /* モバイル用のサイズも調整 */
     }
 
     .hero-text-top .jp {
-        font-size: 1.6em;  /* モバイル用のサイズも調整 */
+        font-size: 1.2em;  /* モバイル用のサイズも調整 */
     }
 
     .hero-text-bottom {
-        bottom: 5%;
+        bottom: 15%;
         right: 5%;
     }
 
     .hero-text-bottom .company-name {
         font-size: 1.4em;
-    }
-
-    .hero-logo .logo-image {
-        height: 60vh; /* 小さな画面では高さを減らす */
-        max-height: 400px; /* 最大高さも調整 */
     }
 
     .hero-inner {
@@ -1356,38 +1366,168 @@ footer {
         font-size: 4vw; /* モバイル表示時のフォントサイズ */
     }
 
-    .about-content-top, .about-content-right {
-        position: static;
+    /* Aboutセクションの青い円の位置調整 */
+    .drops {
+        right: 107px;  /* 右側への移動距離（必要に応じて調整） */
+        transform: translateY(-70px);  /* Y軸方向の移動 */
+    }
+
+    /* 個別の円の位置も必要に応じて調整可能 */
+    .drop1 {
+        right: 20px;  /* 止まっている青い円の位置 */
+    }
+
+    .drop2 {
+        right: 20px;  /* 落ちる青い円の開始位置 */
+    }
+
+    /* Aboutセクションのコンテンツ幅調整 */
+    .about-content,
+    .about-content-top {
+        width: 100%;
+        max-width: 90%;  /* テキスト幅を少し狭めに設定 */
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .pc-only {
+        display: none;
+    }
+    .sp-only {
+        display: block;
+    }
+
+    .sp-only .line1 {
+        display: block;
+        text-align: left;
+    }
+
+    .sp-only .line2 {
+        display: block;
+        text-align: right;
+        margin-top: 5px;  /* 行間の調整（必要に応じて） */
+    }
+
+    .sp-br {
+        display: block;  /* モバイル版では改行として表示 */
+    }
+
+    /* テキストブロックの設定 */
+    .about-item {
+        width: 100%;
+        max-width: 90%;  /* コンテンツエリアと同じ幅に統一 */
+        margin: 15px auto;  /* 中央揃えに変更 */
+        padding: 0;
+        position: relative;
         transform: none;
-        width: 90%;
-        max-width: none;
-        margin: 1rem auto;
     }
 
-    .about-content-right {
-        position: static;
-        transform: none;
-        width: 90%;
-        max-width: none;
-        margin: 1rem auto;
-        max-height: none;
+    /* 全てのテキスト要素の共通設定 */
+    .about-content h2,
+    .about-content h3,
+    .about-content p,
+    .about-item h4,
+    .about-item p {
+        width: 100%;
+        max-width: 100%;  /* 親要素の幅いっぱいに */
+        margin: 10px 0;
+        padding: 0;
+        text-align: left;
     }
 
-    .about-content-top h3 {
-        text-align: center;
-        margin-right: 0;
+    .single-line.slide-in {
+        font-size: 1.1rem;  /* または具体的なピクセル値: 14px など */
+        line-height: 1.6;   /* 行間の調整 */
+        text-align: center;  /* 右揃え */
+        padding-right: 20px;  /* 右側の余白 */
     }
 
-    .product-grid {
-        grid-template-columns: 1fr;
+    /* スライドインアニメーションのある要素の幅調整 */
+    .slide-in {
+        width: 100%;
     }
 
+    #products h2 {
+        margin-top: 20px;     /* タイトルの上マージンを調整 */
+    }
+
+    #products h3 {
+        font-size: 1.1em;  /* テキストサイズを小さく */
+        line-height: 1.6;  /* 行間を調整 */
+        width: 90%;  /* 幅を調整 */
+        margin: 0 auto;  /* 中央揃え */
+        padding: 0 10px;  /* 左右の余白 */
+    }
+
+    /* カルーセル自体のレイアウトを変更 */
+    .product-carousel {
+        display: block;         /* flexを解除 */
+        width: 100%;
+    }
+
+    /* 商品アイテムのレイアウト調整 */
     .product-item {
-        width: 100%; /* モバイル表示時は1列に */
+        display: block;          /* flexを解除 */
+        width: 100%;
+        text-align: center;      /* 中央揃え */
+    }
+
+    .product-item img {
+        width: 90%;
+        margin: 0 auto 20px;     /* 中央揃えと下マージン */
+        display: block;          /* ブロック要素に */
+    }
+
+    .product-text {
+        width: 90%;
+        margin: 0 auto;          /* 中央揃え */
+        padding-left: 20px;
+    }
+
+    .product-text h4 {
+        font-size: 1.2em;      /* 見出しのサイズ */
+        margin-bottom: 15px;   /* 見出しの下の余白 */
+    }
+
+    .product-text p {
+        font-size: 0.9em;      /* 本文のサイズ */
+        line-height: 1.6;      /* 行間 */
+    }
+
+    /* 浄水器製造の画像とテキストの間隔を調整 */
+    .product-item:first-child img {
+        margin-bottom: 90px;  /* 下マージンを増やして間隔を広げる */
     }
 
     #message {
-        padding: 3rem 1rem;
+        background-size: 800px auto;     /* 幅を80%に、高さは自動調整 */
+        background-position: 55% 80%;   /* 横方向20%（左寄り）、縦方向80% */
+        position: relative;            /* 位置の基準点を設定 */
+        padding-top: 60px;             /* 上部の余白を追加 */
+        padding-bottom: 60px;          /* 下部の余白を追加 */
+        min-height: 400px;             /* 最小の高さを設定 */
+        display: flex;                 /* フレックスボックスを使用 */
+        align-items: center;           /* 縦方向の中央揃え */
+    }
+
+    /* MESSAGEセクションの改行を無効化 */
+    #message .message-content p br {
+        display: none;  /* 改行を無効化 */
+    }
+
+    /* メッセージコンテンツの調整 */
+    #message .message-content {
+        width: 90%;             /* コンテンツ幅を設定 */
+        margin: 0 auto;         /* 中央揃え */
+    }
+
+    /* メッセージ本文の調整 */
+    #message .message-content p {
+        margin-bottom: 15px;  /* 段落間の余白を確保 */
+        line-height: 1.6;     /* 行間を調整 */
+        width: 100%;          /* 幅を調整 */
+        margin-left: auto;    /* 左右中央揃え */
+        margin-right: auto;
     }
 
     #message h2 {
@@ -1398,8 +1538,27 @@ footer {
         font-size: 1em;
     }
 
+    /* COMPANYセクションの背景画像調整 */
+    #company {
+        background-size: cover;          /* 画面全体をカバー */
+        background-position: 40% center;  /* 横位置を調整 */
+        background-repeat: no-repeat;     /* 繰り返しなし */
+        background-attachment: scroll;     /* スクロール時の動作 */
+        padding: 2rem 0;                 
+        padding-bottom: 100px;           
+        padding-top: 80px;               
+    }
+
     .company-container {
         flex-direction: column;
+        align-items: center;       /* 中央揃え */
+    }
+
+    /* 会社情報テーブルの位置調整 */
+    .company-info {
+        width: 90%;              /* 幅を設定 */
+        margin-left: -25px;       /* 左マージンで位置を調整 */
+        transform: translateY(-50px);
     }
 
     .company-info,
@@ -1418,30 +1577,51 @@ footer {
     }
 
     .company-logo {
-        margin-top: 2rem;
+        width: 100%;               /* 幅を調整 */
+        order: -1;               /* 要素の順序を最初に */
+        transform: translateY(-50px);
+    }
+
+    .company-logo img {
+        padding-top: 0;          /* 既存のパディングをリセット */
+        max-width: 100%;          /* 画像の最大幅を設定 */
+    }
+
+    #contact {
+        padding-top: 80px;        /* 上部パディングを減らす */
+    }
+
+    /* お問い合わせフォームの調整 */
+    #contact .form-group textarea,
+    #contact form textarea {
+        height: 120px !important;     /* !important で優先度を上げる */
+        min-height: 120px !important; /* 最小の高さも設定 */
+        max-height: 120px !important; /* 最大の高さも設定 */
+        width: 100%;
+        margin-top: 1.5rem;
+        vertical-align: top;
+        line-height: 1.5;
+        resize: none;               /* リサイズ機能を無効化 */
     }
 
     .form-container {
         flex-direction: column;
     }
 
-    .footer-section {
-        margin-bottom: 2rem;
-        text-align: center;
+    /* フッターのナビゲーションのみ非表示 */
+    footer .footer-nav {
+        display: none;
     }
 
-    .footer-content {
-        flex-direction: column;
-        align-items: center;
+    /* 個人情報保護方針の位置調整 */
+    .footer-logo-policy {
+        width: 100%;              /* 幅を100%に */
     }
 
-    .footer-logo, .footer-nav, .footer-info {
-        margin-bottom: 1rem;
-    }
-
-    .footer-nav ul {
-        text-align: center;
-    }
+    .footer-logo-policy a {
+        white-space: nowrap;      /* 1行に表示 */
+        padding-left: 30px;
+    } 
 }
 
 @media (max-width: 1200px) {
